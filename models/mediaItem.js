@@ -5,7 +5,7 @@ const mediaItemSchema = new mongoose.Schema({
   description: String,
   format: String, // DVD, Blu-ray, CD, Vinyl, etc.
   type: String,   // Movie, TV, Music, etc.
-  location: String,
+  location: {type: mongoose.Schema.Types.ObjectId, ref: 'LocationItem'},
   watched: Boolean,
   rating: Number,
   img_url: String,

@@ -8,5 +8,6 @@ router.put('/:id', mediaController.updateMediaItem);
 router.delete('/:id', mediaController.deleteMediaItem);
 
 router.put('/actorAdd/:id', mediaController.addActor);
+router.put('/locationAdd/:id', mediaController.addLocation);
 
 module.exports = router;

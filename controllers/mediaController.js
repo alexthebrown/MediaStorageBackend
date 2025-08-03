@@ -1,5 +1,6 @@
 const MediaItem = require('../models/mediaItem');
 const ActorItem = require('../models/actorItem'); 
+const LocationItem = require('../models/locationItem');
 
 exports.getAllMedia = async (req, res) => {
   const items = await MediaItem.find();
@@ -51,3 +52,31 @@ exports.addActor = async (req, res) => {
     }
   };
   
+  exports.addLocation = async (req, res) => {
+    const { location } = req.body; // array of ObjectId strings
+    const mediaId = req.params.id;
+  
+    try {
+      // Step 1: Add actors to the media item
+      const mediaItem = await MediaItem.findByIdAndUpdate(
+        mediaId,
+        { $addToSet: { location: { location } } },
+        { new: true }
+      );
+  
+      if (!mediaItem) {
+        return res.status(404).json({ error: 'Media item not found' });
+      }
+  
+      // Step 2: Add media item to each actor's filmography
+      await LocationItem.updateMany(
+        { _id: { location } },
+        { $addToSet: { titlesInLocation: mediaId } }
+      );
+  
+      res.json(mediaItem);
+    } catch (err) {
+      console.error('Error in addLocation:', err);
+      res.status(500).json({ error: 'Failed to update media and location records' });
+    }
+  };

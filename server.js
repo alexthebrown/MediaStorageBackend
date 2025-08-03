@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const mediaRoutes = require('./routes/mediaRoutes');
 const actorRoutes = require('./routes/actorRoutes');
+const locationRoutes = require('./routes/locationRoutes');
 
 dotenv.config();
 
@@ -10,6 +11,7 @@ const app = express();
 app.use(express.json());
 app.use('/api/media', mediaRoutes);
 app.use('/api/actor', actorRoutes);
+app.use('/api/location', locationRoutes);
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
