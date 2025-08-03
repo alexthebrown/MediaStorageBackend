@@ -7,6 +7,6 @@ router.post('/', mediaController.createMediaItem);
 router.put('/:id', mediaController.updateMediaItem);
 router.delete('/:id', mediaController.deleteMediaItem);
 
-router.put('/:id', mediaController.addActor);
+router.put('/actorAdd/:id', mediaController.addActor);
 
 module.exports = router;
